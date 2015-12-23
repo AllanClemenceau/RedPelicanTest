@@ -5,7 +5,7 @@ var TrackItem = React.createClass({
     render: function() {
         return (
             <ul>
-                <li className="albumItem-titleLink" key={this.props.item.id} id={this.props.item.id}>{this.props.item.name}</li>
+                <li key={this.props.item.id} id={this.props.item.id}>{this.props.item.name}</li>
             </ul>
         );
     }
@@ -30,15 +30,18 @@ var AlbumItem = React.createClass({
     },
 
     trackChange: function(e){
+        $('#album-content > div > ul.selected').removeClass('selected');
         //console.log('https://api.spotify.com/v1/albums/' + e.target.id + '/tracks');
         this.setState({
-            url: 'https://api.spotify.com/v1/albums/' + e.target.id + '/tracks'
+            url: 'https://api.spotify.com/v1/albums/' + e.target.id + '/tracks',
+            currentClass: 'selected'
         }, this.loadTracksFromServer);
     },
 
     getInitialState: function() {
         return {
-            trackList: []
+            trackList: [],
+            currentClass: ''
         };
     },
 
@@ -49,8 +52,8 @@ var AlbumItem = React.createClass({
         })}
         React.render(<div>{rows}</div>, $('#track-content')[0]);
         return (
-            <ul>
-                <li className="albumItem-titleLink" key={this.props.item.id} id={this.props.item.id} onClick={this.trackChange}>{this.props.item.name}</li>
+            <ul className={this.state.currentClass}>
+                <li key={this.props.item.id} id={this.props.item.id} onClick={this.trackChange}>{this.props.item.name}</li>
             </ul>
         );
     }
@@ -75,15 +78,18 @@ var ArtistItem = React.createClass({
     },
 
     albumChange: function(e){
+        $('#artist-content > div > ul.selected').removeClass('selected');
         //console.log('https://api.spotify.com/v1/artists/' + e.target.id + '/albums');
         this.setState({
-            url: 'https://api.spotify.com/v1/artists/' + e.target.id + '/albums'
+            url: 'https://api.spotify.com/v1/artists/' + e.target.id + '/albums',
+            currentClass: 'selected'
         }, this.loadAlbumsFromServer);
     },
 
     getInitialState: function() {
         return {
-            albumList: []
+            albumList: [],
+            currentClass: ''
         };
     },
 
@@ -99,8 +105,8 @@ var ArtistItem = React.createClass({
             React.render(<div>{rows}</div>, $('#album-content')[0]);
         }
         return (
-            <ul>
-                <li className="artistItem-titleLink" key={this.props.item.id} id={this.props.item.id} onClick={this.albumChange}>{this.props.item.name}</li>
+            <ul className={this.state.currentClass}>
+                <li key={this.props.item.id} id={this.props.item.id} onClick={this.albumChange}>{this.props.item.name}</li>
             </ul>
         );
     }
