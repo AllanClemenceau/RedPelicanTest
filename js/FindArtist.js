@@ -161,6 +161,7 @@ var SearchArtist = React.createClass({
         } else {
             React.render(<div>{rows}</div>, $('#artist-content')[0]);
         }
+        $('#artist-content > div > ul.selected').removeClass('selected');
         return (
             <div className="group">
                 <input type="text" onChange={this.artistChange} placeholder="Artiste recherché" />
