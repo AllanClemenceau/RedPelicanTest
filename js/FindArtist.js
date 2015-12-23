@@ -18,7 +18,7 @@ var AlbumItem = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 this.setState({
                     trackList: data.items
                 });
@@ -63,7 +63,7 @@ var ArtistItem = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 this.setState({
                     albumList: data.items
                 });
@@ -92,7 +92,12 @@ var ArtistItem = React.createClass({
         {this.state.albumList.map(function(item) {
             rows.push(<AlbumItem item={item} />);
         })}
-        React.render(<div>{rows}</div>, $('#album-content')[0]);
+        if (rows.length == 0) {
+            React.render(<div></div>, $('#album-content')[0]);
+            React.render(<div></div>, $('#track-content')[0]);
+        } else {
+            React.render(<div>{rows}</div>, $('#album-content')[0]);
+        }
         return (
             <ul>
                 <li className="artistItem-titleLink" key={this.props.item.id} id={this.props.item.id} onClick={this.albumChange}>{this.props.item.name}</li>
@@ -109,7 +114,7 @@ var SearchArtist = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                console.log(data);
+                //console.log(data);
                 this.setState({
                     artistList: data.artists.items
                 });
@@ -139,16 +144,24 @@ var SearchArtist = React.createClass({
     },
 
     render: function() {
+        rows = [];
+        {(this.state.artistList || []).map(function(item) {
+            rows.push(<ArtistItem item={item} />);
+        })}
+        React.render(<div>{rows}</div>, $('#artist-content')[0]);
+        if (rows.length == 0) {
+            React.render(<div></div>, $('#album-content')[0]);
+            React.render(<div></div>, $('#track-content')[0]);
+        }
         return (
-            <div className="artistContent">
-                <input type="text" onChange={this.artistChange} placeholder="Type here" />
-                {this.state.artistList.map(function(item) {
-                    return <ArtistItem item={item} />;
-                })}
+            <div className="group">
+                <input type="text" onChange={this.artistChange} placeholder="Artiste" />
+                <span className="highlight"></span>
+                <span className="bar"></span>
             </div>
         );
     }
 });
 
 
-React.render(<SearchArtist />, $('#artist-content')[0]);
+React.render(<SearchArtist />, $('#search-artist')[0]);

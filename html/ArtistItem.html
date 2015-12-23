@@ -7,10 +7,29 @@
     <link href="../css/app.css" rel="stylesheet">
 </head>
 <body>
-<div id="search-artist"></div>
-<div id="artist-content"></div>
-<div id="album-content"></div>
-<div id="track-content"></div>
+<div id="search-artist" class="group"></div>
+<div class="table-responsive-vertical shadow-z-1">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Artistes</th>
+                <th>Albums</th>
+                <th>Tracks</th>
+            </tr>
+        </thead>
+        <tr>
+            <td>
+                <div id="artist-content"></div>
+            </td>
+            <td>
+                <div id="album-content"></div>
+            </td>
+            <td>
+                <div id="track-content"></div>
+            </td>
+        </tr>
+    </table>
+</div>
 <script src="../build/js/FindArtist.js"></script>
 </body>
 </html>

@@ -1,3 +1,20 @@
+.table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 2rem;
+    background-color: #ffffff;
+}
+
+.table > thead > tr > th{
+    width: 33%;
+}
+
+.shadow-z-1 {
+    -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 1px 2px 0 rgba(0, 0, 0, 0.24);
+}
+
 .artistItem {
     color: #828282;
     margin-top: 5px;
@@ -8,11 +25,42 @@
     font-size: 10pt;
     text-decoration: none;
 }
+.table > thead > tr, .table > tbody > tr, .table > tfoot > tr {
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.table > thead > tr > th, .table > tbody > tr > td > div > div > ul > li{
+    text-align: left;
+    padding: 1.6rem;
+    vertical-align: top;
+    border-top: 0;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.table > thead > tr > th {
+    font-weight: 400;
+    color: #757575;
+    vertical-align: bottom;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+tbody > tr > td > div#artist-content > div > ul:hover, tbody > tr > td > div#album-content > div > ul:hover {
+    background-color: #b3e5fc;
+}
+
+#artist-content {
+
+}
+
 
 #album-content {
-    background-color: darkred;
+
 }
 
 #track-content {
-    background-color: darkgreen;
+
 }
