@@ -90,7 +90,7 @@ var ArtistItem = React.createClass({
             <ul>
                 <li className="artistItem-titleLink" key={this.props.item.id} id={this.props.item.id} onClick={this.albumChange}>{this.props.item.name}</li>
                 {this.state.albumList.map(function(item) {
-                    return React.render(<AlbumItem item={item} />);
+                    return <AlbumItem item={item} />;
                 })}
             </ul>
         );
