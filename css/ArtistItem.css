@@ -51,3 +51,7 @@
 tbody > tr > td > div#artist-content > div > ul:hover, tbody > tr > td > div#album-content > div > ul:hover {
     background-color: #b3e5fc;
 }
+
+tbody > tr > td > div#artist-content > div > ul#no-artist:hover{
+    background-color: initial;
+}

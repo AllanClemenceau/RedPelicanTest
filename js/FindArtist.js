@@ -148,10 +148,12 @@ var SearchArtist = React.createClass({
         {(this.state.artistList || []).map(function(item) {
             rows.push(<ArtistItem item={item} />);
         })}
-        React.render(<div>{rows}</div>, $('#artist-content')[0]);
         if (rows.length == 0) {
             React.render(<div></div>, $('#album-content')[0]);
             React.render(<div></div>, $('#track-content')[0]);
+            React.render(<div><ul id="no-artist"><li>Aucun artiste ne correspond à votre recherche</li></ul></div>, $('#artist-content')[0]);
+        } else {
+            React.render(<div>{rows}</div>, $('#artist-content')[0]);
         }
         return (
             <div className="group">
