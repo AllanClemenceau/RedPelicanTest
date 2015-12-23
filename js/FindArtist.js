@@ -155,7 +155,7 @@ var SearchArtist = React.createClass({
         }
         return (
             <div className="group">
-                <input type="text" onChange={this.artistChange} placeholder="Artiste" />
+                <input type="text" onChange={this.artistChange} placeholder="Artiste recherché" />
                 <span className="highlight"></span>
                 <span className="bar"></span>
             </div>
