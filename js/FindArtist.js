@@ -43,12 +43,14 @@ var AlbumItem = React.createClass({
     },
 
     render: function() {
+        rows = [];
+        {this.state.trackList.map(function(item) {
+            rows.push(<TrackItem item={item} />);
+        })}
+        React.render(<div>{rows}</div>, $('#track-content')[0]);
         return (
             <ul>
                 <li className="albumItem-titleLink" key={this.props.item.id} id={this.props.item.id} onClick={this.trackChange}>{this.props.item.name}</li>
-                {this.state.trackList.map(function(item) {
-                    return <TrackItem item={item} />;
-                })}
             </ul>
         );
     }
@@ -86,12 +88,14 @@ var ArtistItem = React.createClass({
     },
 
     render: function() {
+        rows = [];
+        {this.state.albumList.map(function(item) {
+            rows.push(<AlbumItem item={item} />);
+        })}
+        React.render(<div>{rows}</div>, $('#album-content')[0]);
         return (
             <ul>
                 <li className="artistItem-titleLink" key={this.props.item.id} id={this.props.item.id} onClick={this.albumChange}>{this.props.item.name}</li>
-                {this.state.albumList.map(function(item) {
-                    return <AlbumItem item={item} />;
-                })}
             </ul>
         );
     }
@@ -147,4 +151,4 @@ var SearchArtist = React.createClass({
 });
 
 
-React.render(<SearchArtist />, $('#content')[0]);
+React.render(<SearchArtist />, $('#artist-content')[0]);

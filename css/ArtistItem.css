@@ -8,3 +8,11 @@
     font-size: 10pt;
     text-decoration: none;
 }
+
+#album-content {
+    background-color: darkred;
+}
+
+#track-content {
+    background-color: darkgreen;
+}
