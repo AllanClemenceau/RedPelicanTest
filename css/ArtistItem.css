@@ -1,0 +1,10 @@
+.artistItem {
+    color: #828282;
+    margin-top: 5px;
+}
+
+.artistItem-titleLink {
+    color: black;
+    font-size: 10pt;
+    text-decoration: none;
+}
