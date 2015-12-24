@@ -18,7 +18,17 @@ var AlbumItem = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                //console.log(data);
+                data.items.sort(function(itemA, itemB) {
+                    if (itemA.name > itemB.name) {
+                        return 1;
+                    }
+
+                    if (itemA.name < itemB.name) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
                 this.setState({
                     trackList: data.items
                 });
@@ -65,7 +75,17 @@ var ArtistItem = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                //console.log(data);
+                data.items.sort(function(itemA, itemB) {
+                    if (itemA.name > itemB.name) {
+                        return 1;
+                    }
+
+                    if (itemA.name < itemB.name) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
                 this.setState({
                     albumList: data.items
                 });
@@ -102,6 +122,7 @@ var ArtistItem = React.createClass({
         } else {
             React.render(<div>{rows}</div>, $('#album-content')[0]);
         }
+
         return (
             <ul>
                 <li key={this.props.item.id} id={this.props.item.id} onClick={this.albumChange}>{this.props.item.name}</li>
@@ -118,10 +139,21 @@ var SearchArtist = React.createClass({
             dataType: 'json',
             cache: false,
             success: function(data) {
-                //console.log(data);
+                data.artists.items.sort(function(itemA, itemB) {
+                    if (itemA.name > itemB.name) {
+                        return 1;
+                    }
+
+                    if (itemA.name < itemB.name) {
+                        return -1;
+                    }
+
+                    return 0;
+                });
                 this.setState({
                     artistList: data.artists.items
                 });
+
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
