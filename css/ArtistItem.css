@@ -41,6 +41,11 @@
     transition: all 0.3s ease;
 }
 
+tbody > tr > td > div{
+    max-height: 525px;
+    overflow: auto;
+}
+
 .table > thead > tr > th {
     font-weight: 400;
     color: #757575;
