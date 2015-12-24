@@ -19,11 +19,11 @@ var AlbumItem = React.createClass({
             cache: false,
             success: function(data) {
                 data.items.sort(function(itemA, itemB) {
-                    if (itemA.name > itemB.name) {
+                    if (itemA.name.toLowerCase() > itemB.name.toLowerCase()) {
                         return 1;
                     }
 
-                    if (itemA.name < itemB.name) {
+                    if (itemA.name.toLowerCase() < itemB.name.toLowerCase()) {
                         return -1;
                     }
 
@@ -76,11 +76,11 @@ var ArtistItem = React.createClass({
             cache: false,
             success: function(data) {
                 data.items.sort(function(itemA, itemB) {
-                    if (itemA.name > itemB.name) {
+                    if (itemA.name.toLowerCase() > itemB.name.toLowerCase()) {
                         return 1;
                     }
 
-                    if (itemA.name < itemB.name) {
+                    if (itemA.name.toLowerCase() < itemB.name.toLowerCase()) {
                         return -1;
                     }
 
@@ -140,11 +140,11 @@ var SearchArtist = React.createClass({
             cache: false,
             success: function(data) {
                 data.artists.items.sort(function(itemA, itemB) {
-                    if (itemA.name > itemB.name) {
+                    if (itemA.name.toLowerCase() > itemB.name.toLowerCase()) {
                         return 1;
                     }
 
-                    if (itemA.name < itemB.name) {
+                    if (itemA.name.toLowerCase() < itemB.name.toLowerCase()) {
                         return -1;
                     }
 
