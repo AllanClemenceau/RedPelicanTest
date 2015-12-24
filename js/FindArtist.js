@@ -33,15 +33,14 @@ var AlbumItem = React.createClass({
         $('#album-content > div > ul.selected').removeClass('selected');
         //console.log('https://api.spotify.com/v1/albums/' + e.target.id + '/tracks');
         this.setState({
-            url: 'https://api.spotify.com/v1/albums/' + e.target.id + '/tracks',
-            currentClass: 'selected'
+            url: 'https://api.spotify.com/v1/albums/' + e.target.id + '/tracks'
         }, this.loadTracksFromServer);
+        $(e.target).parent().addClass('selected');
     },
 
     getInitialState: function() {
         return {
-            trackList: [],
-            currentClass: ''
+            trackList: []
         };
     },
 
@@ -52,7 +51,7 @@ var AlbumItem = React.createClass({
         })}
         React.render(<div>{rows}</div>, $('#track-content')[0]);
         return (
-            <ul className={this.state.currentClass}>
+            <ul>
                 <li key={this.props.item.id} id={this.props.item.id} onClick={this.trackChange}>{this.props.item.name}</li>
             </ul>
         );
@@ -81,15 +80,14 @@ var ArtistItem = React.createClass({
         $('#artist-content > div > ul.selected').removeClass('selected');
         //console.log('https://api.spotify.com/v1/artists/' + e.target.id + '/albums');
         this.setState({
-            url: 'https://api.spotify.com/v1/artists/' + e.target.id + '/albums',
-            currentClass: 'selected'
+            url: 'https://api.spotify.com/v1/artists/' + e.target.id + '/albums'
         }, this.loadAlbumsFromServer);
+        $(e.target).parent().addClass('selected');
     },
 
     getInitialState: function() {
         return {
-            albumList: [],
-            currentClass: ''
+            albumList: []
         };
     },
 
@@ -105,7 +103,7 @@ var ArtistItem = React.createClass({
             React.render(<div>{rows}</div>, $('#album-content')[0]);
         }
         return (
-            <ul className={this.state.currentClass}>
+            <ul>
                 <li key={this.props.item.id} id={this.props.item.id} onClick={this.albumChange}>{this.props.item.name}</li>
             </ul>
         );
