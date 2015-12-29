@@ -41,7 +41,7 @@ Setup
     watchify -v -o build/js/AlbumItem.js js/AlbumItem.js
     watchify -v -o build/js/ArtistItem.js js/ArtistItem.js
     watchify -v -o build/js/SearchArtist.js js/SearchArtist.js
-    ```
 
     # Start the HTTP server.
     http-server -p 8888
+    ```
