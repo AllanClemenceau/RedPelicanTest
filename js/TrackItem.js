@@ -3,10 +3,17 @@ var React = require('react');
 
 var TrackItem = React.createClass({
     render: function() {
+        rows = [];
+        {this.props.artistList.map(function(item) {
+            rows.push(
+                <ul>
+                    <li id={item.id} key={item.id}>{item.name}</li>
+                </ul>
+            )
+        })}
+
         return (
-            <ul>
-                <li key={this.props.item.id} id={this.props.item.id}>{this.props.item.name}</li>
-            </ul>
+            <div>{rows}</div>
         );
     }
 });

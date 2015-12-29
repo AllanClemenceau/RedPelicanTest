@@ -1,5 +1,7 @@
 var $ = require('jquery');
 var ArtistItem = require('./ArtistItem');
+var AlbumItem = require('./AlbumItem');
+var TrackItem = require('./TrackItem');
 var React = require('react');
 
 var SearchArtist = React.createClass({
@@ -34,34 +36,54 @@ var SearchArtist = React.createClass({
         if (e.target.value != "") {
             React.render(<div><ul id="no-artist"><li>Aucun artiste ne correspond à votre recherche</li></ul></div>, $('#artist-content')[0]);
             this.setState({
-                url: 'https://api.spotify.com/v1/search?q=' + e.target.value + '&type=artist'
+                url: 'https://api.spotify.com/v1/search?q=' + e.target.value + '&type=artist',
+                albumList: [],
+                trackList: [],
+                selectedAlbum: ''
             }, this.loadArtistsFromServer);
         } else {
             React.render(<div><ul id="no-artist"><li>Aucune recherche en cours</li></ul></div>, $('#artist-content')[0]);
             this.setState({
-                artistList: []
+                artistList: [],
+                albumList: [],
+                trackList: [],
+                selectedArtist: '',
+                selectedAlbum: ''
             });
         }
     },
 
+    onClickArtist: function(albumList){
+        this.setState({
+            albumList: albumList,
+            trackList: [],
+            selectedAlbum: ''
+        });
+    },
+
+    onClickAlbum: function(trackList){
+        this.setState({
+            trackList: trackList
+        });
+    },
+
     getInitialState: function() {
         return {
-            artistList: []
+            artistList: [],
+            albumList: [],
+            trackList: [],
+            selectedArtist: '',
+            selectedAlbum: ''
         };
     },
 
     render: function() {
-        rows = [];
-        {(this.state.artistList || []).map(function(item) {
-            rows.push(<ArtistItem item={item} />);
-        })}
-        if (rows.length == 0) {
-            React.render(<div></div>, $('#album-content')[0]);
-            React.render(<div></div>, $('#track-content')[0]);
-        } else {
-            React.render(<div>{rows}</div>, $('#artist-content')[0]);
-        }
+        /*
         $('#artist-content > div > ul.selected').removeClass('selected');
+        */
+        React.render(<ArtistItem artistList={this.state.artistList} onClickArtist={this.onClickArtist} selectedArtist={this.state.selectedArtist} />, $('#artist-content')[0]);
+        React.render(<AlbumItem artistList={this.state.albumList} onClickAlbum={this.onClickAlbum} selectedAlbum={this.state.selectedAlbum} />, $('#album-content')[0]);
+        React.render(<TrackItem artistList={this.state.trackList} />, $('#track-content')[0]);
         return (
             <div className="group">
                 <input type="text" onChange={this.artistChange} placeholder="Artiste recherché" />
