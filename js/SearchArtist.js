@@ -79,9 +79,6 @@ var SearchArtist = React.createClass({
     },
 
     render: function() {
-        /*
-        $('#artist-content > div > ul.selected').removeClass('selected');
-        */
         React.render(<ArtistItem artistList={this.state.artistList} onClickArtist={this.onClickArtist} selectedArtist={this.state.selectedArtist} artistSearch={this.state.artistSearch} />, $('#artist-content')[0]);
         React.render(<AlbumItem artistList={this.state.albumList} onClickAlbum={this.onClickAlbum} selectedAlbum={this.state.selectedAlbum} />, $('#album-content')[0]);
         React.render(<TrackItem artistList={this.state.trackList} />, $('#track-content')[0]);
