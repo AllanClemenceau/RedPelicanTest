@@ -36,15 +36,12 @@ Setup
     # These dependencies are globally installed command line tools.
     npm install -g browserify watchify http-server
 
- 1. Start Watchify. This compiles your React (JSX) components into ordinary JavaScript.
-    ```bash
+    # Start Watchify. This compiles your React (JSX) components into ordinary JavaScript.
     watchify -v -o build/js/TrackItem.js js/TrackItem.js
     watchify -v -o build/js/AlbumItem.js js/AlbumItem.js
     watchify -v -o build/js/ArtistItem.js js/ArtistItem.js
     watchify -v -o build/js/SearchArtist.js js/SearchArtist.js
     ```
 
- 1. Start the HTTP server.
-    ```bash
+    # Start the HTTP server.
     http-server -p 8888
-    ```
