@@ -56,6 +56,14 @@ var ArtistItem = React.createClass({
             )
         }.bind(this))}
 
+        if (rows.length == 0 && this.props.artistSearch != '') {
+            rows = <ul id="no-artist"><li>Aucun artiste ne correspond à votre recherche</li></ul>;
+        }
+
+        if (rows.length == 0) {
+            rows = <ul id="no-artist"><li>Aucune recherche en cours</li></ul>;
+        }
+
         return (
             <div>{rows}</div>
         );

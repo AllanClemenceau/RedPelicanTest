@@ -34,21 +34,21 @@ var SearchArtist = React.createClass({
 
     artistChange: function(e){
         if (e.target.value != "") {
-            React.render(<div><ul id="no-artist"><li>Aucun artiste ne correspond à votre recherche</li></ul></div>, $('#artist-content')[0]);
             this.setState({
                 url: 'https://api.spotify.com/v1/search?q=' + e.target.value + '&type=artist',
                 albumList: [],
                 trackList: [],
-                selectedAlbum: ''
+                selectedAlbum: '',
+                artistSearch: e.target.value
             }, this.loadArtistsFromServer);
         } else {
-            React.render(<div><ul id="no-artist"><li>Aucune recherche en cours</li></ul></div>, $('#artist-content')[0]);
             this.setState({
                 artistList: [],
                 albumList: [],
                 trackList: [],
                 selectedArtist: '',
-                selectedAlbum: ''
+                selectedAlbum: '',
+                artistSearch: ''
             });
         }
     },
@@ -73,7 +73,8 @@ var SearchArtist = React.createClass({
             albumList: [],
             trackList: [],
             selectedArtist: '',
-            selectedAlbum: ''
+            selectedAlbum: '',
+            artistSearch: ''
         };
     },
 
@@ -81,7 +82,7 @@ var SearchArtist = React.createClass({
         /*
         $('#artist-content > div > ul.selected').removeClass('selected');
         */
-        React.render(<ArtistItem artistList={this.state.artistList} onClickArtist={this.onClickArtist} selectedArtist={this.state.selectedArtist} />, $('#artist-content')[0]);
+        React.render(<ArtistItem artistList={this.state.artistList} onClickArtist={this.onClickArtist} selectedArtist={this.state.selectedArtist} artistSearch={this.state.artistSearch} />, $('#artist-content')[0]);
         React.render(<AlbumItem artistList={this.state.albumList} onClickAlbum={this.onClickAlbum} selectedAlbum={this.state.selectedAlbum} />, $('#album-content')[0]);
         React.render(<TrackItem artistList={this.state.trackList} />, $('#track-content')[0]);
         return (
