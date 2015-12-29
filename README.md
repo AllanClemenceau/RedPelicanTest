@@ -1,8 +1,8 @@
 Find Artists
 ===
 This is a project done with React (first use) as test.
----
 
+---
 Setup
 ---
  1. Create the project directory structure.
