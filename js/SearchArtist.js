@@ -108,23 +108,10 @@ var SearchArtist = React.createClass({
         if (e.target.value == '') {
             url = '';
         }
-        //if (e.target.value != "") {
-            this.setState({
-                //albumList: [],
-                //trackList: [],
-                //selectedAlbum: '',
-                artistSearch: e.target.value
-            }, this.loadDataFromServer(url, 'artist'));
-        //} else {
-        //    this.setState({
-        //        artistList: [],
-        //        albumList: [],
-        //        trackList: [],
-        //        selectedArtist: '',
-        //        selectedAlbum: '',
-        //        artistSearch: ''
-        //    });
-        //}
+
+        this.setState({
+            artistSearch: e.target.value
+        }, this.loadDataFromServer(url, 'artist'));
     },
 
     setSelectedArtist: function(e){
