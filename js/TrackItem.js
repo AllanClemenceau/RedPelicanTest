@@ -4,7 +4,7 @@ var React = require('react');
 var TrackItem = React.createClass({
     render: function() {
         rows = [];
-        {this.props.artistList.map(function(item) {
+        {this.props.trackList.map(function(item) {
             rows.push(
                 <ul>
                     <li id={item.id} key={item.id}>{item.name}</li>

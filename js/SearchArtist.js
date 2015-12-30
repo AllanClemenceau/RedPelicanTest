@@ -5,13 +5,18 @@ var TrackItem = require('./TrackItem');
 var React = require('react');
 
 var SearchArtist = React.createClass({
-    loadArtistsFromServer: function() {
+    loadDataFromServer: function(url, type) {
         $.ajax({
-            url: this.state.url,
+            url: url,
             dataType: 'json',
             cache: false,
             success: function(data) {
-                data.artists.items.sort(function(itemA, itemB) {
+                if (type == 'artist') {
+                    data = data.artists;
+                    console.log(data);
+                }
+
+                data.items.sort(function (itemA, itemB) {
                     if (itemA.name.toLowerCase() > itemB.name.toLowerCase()) {
                         return 1;
                     }
@@ -22,9 +27,29 @@ var SearchArtist = React.createClass({
 
                     return 0;
                 });
-                this.setState({
-                    artistList: data.artists.items
-                });
+
+                if (type == 'artist') {
+                    this.setState({
+                        artistList: data.items,
+                        trackList: [],
+                        selectedArtist: '',
+                        selectedAlbum: ''
+                    });
+                }
+
+                if (type == 'album') {
+                    this.setState({
+                        albumList: data.items,
+                        trackList: [],
+                        selectedAlbum: ''
+                    });
+                }
+
+                if (type == 'tracks') {
+                    this.setState({
+                        trackList: data.items
+                    });
+                }
             }.bind(this),
             error: function(xhr, status, err) {
                 console.error(this.props.url, status, err.toString());
@@ -35,12 +60,11 @@ var SearchArtist = React.createClass({
     artistChange: function(e){
         if (e.target.value != "") {
             this.setState({
-                url: 'https://api.spotify.com/v1/search?q=' + e.target.value + '&type=artist',
                 albumList: [],
                 trackList: [],
                 selectedAlbum: '',
                 artistSearch: e.target.value
-            }, this.loadArtistsFromServer);
+            }, this.loadDataFromServer('https://api.spotify.com/v1/search?q=' + e.target.value + '&type=artist', 'artist'));
         } else {
             this.setState({
                 artistList: [],
@@ -53,17 +77,15 @@ var SearchArtist = React.createClass({
         }
     },
 
-    onClickArtist: function(albumList){
+    setSelectedArtist: function(e){
         this.setState({
-            albumList: albumList,
-            trackList: [],
-            selectedAlbum: ''
+            selectedArtist: e
         });
     },
 
-    onClickAlbum: function(trackList){
+    setSelectedAlbum: function(e){
         this.setState({
-            trackList: trackList
+            selectedAlbum: e
         });
     },
 
@@ -79,9 +101,9 @@ var SearchArtist = React.createClass({
     },
 
     render: function() {
-        React.render(<ArtistItem artistList={this.state.artistList} onClickArtist={this.onClickArtist} selectedArtist={this.state.selectedArtist} artistSearch={this.state.artistSearch} />, $('#artist-content')[0]);
-        React.render(<AlbumItem artistList={this.state.albumList} onClickAlbum={this.onClickAlbum} selectedAlbum={this.state.selectedAlbum} />, $('#album-content')[0]);
-        React.render(<TrackItem artistList={this.state.trackList} />, $('#track-content')[0]);
+        React.render(<ArtistItem artistList={this.state.artistList} loadDataFromServer={this.loadDataFromServer} setSelectedArtist={this.setSelectedArtist} selectedArtist={this.state.selectedArtist} artistSearch={this.state.artistSearch} />, $('#artist-content')[0]);
+        React.render(<AlbumItem albumList={this.state.albumList} loadDataFromServer={this.loadDataFromServer} setSelectedAlbum={this.setSelectedAlbum} selectedAlbum={this.state.selectedAlbum} />, $('#album-content')[0]);
+        React.render(<TrackItem trackList={this.state.trackList} />, $('#track-content')[0]);
         return (
             <div className="group">
                 <input type="text" onChange={this.artistChange} placeholder="Artiste recherché" />
