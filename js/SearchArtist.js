@@ -1,8 +1,22 @@
 var $ = require('jquery');
 var ArtistItem = require('./ArtistItem');
 var AlbumItem = require('./AlbumItem');
-var TrackItem = require('./TrackItem');
 var React = require('react');
+
+function TrackItem(props) {
+    rows = [];
+    {props.trackList.map(function(item) {
+        rows.push(
+            <ul>
+                <li id={item.id} key={item.id}>{item.name}</li>
+            </ul>
+        )
+    })}
+
+    return (
+        <div>{rows}</div>
+    );
+}
 
 var SearchArtist = React.createClass({
     loadDataFromServer: function(url, type) {
@@ -113,6 +127,5 @@ var SearchArtist = React.createClass({
         );
     }
 });
-
 
 React.render(<SearchArtist />, $('#search-artist')[0]);

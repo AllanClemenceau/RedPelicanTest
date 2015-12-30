@@ -40,7 +40,6 @@ Setup
  1. Start Watchify and HTTP server .
     ```bash
     # Start Watchify. This compiles your React (JSX) components into ordinary JavaScript.
-    watchify -v -o build/js/TrackItem.js js/TrackItem.js
     watchify -v -o build/js/AlbumItem.js js/AlbumItem.js
     watchify -v -o build/js/ArtistItem.js js/ArtistItem.js
     watchify -v -o build/js/SearchArtist.js js/SearchArtist.js
