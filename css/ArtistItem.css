@@ -61,6 +61,10 @@ tbody > tr > td > div > div > ul.selected {
     background-color: #CCC;
 }
 
-tbody > tr > td > div#artist-content > div > ul#no-artist:hover{
-    background-color: initial;
+ul.no-result:hover{
+    background-color: initial !important;
+}
+
+ul.no-result{
+    color: #FF9494;
 }

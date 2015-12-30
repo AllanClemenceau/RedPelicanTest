@@ -5,7 +5,13 @@ var ArtistItem = React.createClass({
 
     albumChange: function(e){
         this.props.setSelectedArtist(e.target.id);
-        this.props.loadDataFromServer('https://api.spotify.com/v1/artists/' + e.target.id + '/albums', 'album');
+
+        var url = 'https://api.spotify.com/v1/artists/' + e.target.id + '/albums';
+        if (e.target.id == '') {
+            url = '';
+        }
+
+        this.props.loadDataFromServer(url, 'album');
     },
 
     render: function() {
@@ -25,11 +31,11 @@ var ArtistItem = React.createClass({
         }.bind(this))}
 
         if (rows.length == 0 && this.props.artistSearch != '') {
-            rows = <ul id="no-artist"><li>Aucun artiste ne correspond à votre recherche</li></ul>;
+            rows = <ul className="no-result"><li>Aucun artiste ne correspond à votre recherche</li></ul>;
         }
 
         if (rows.length == 0) {
-            rows = <ul id="no-artist"><li>Aucune recherche en cours</li></ul>;
+            rows = <ul className="no-result"><li>Aucune recherche en cours</li></ul>;
         }
 
         return (

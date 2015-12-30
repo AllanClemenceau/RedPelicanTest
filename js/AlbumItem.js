@@ -4,7 +4,13 @@ var React = require('react');
 var AlbumItem = React.createClass({
     trackChange: function(e){
         this.props.setSelectedAlbum(e.target.id);
-        this.props.loadDataFromServer('https://api.spotify.com/v1/albums/' + e.target.id + '/tracks', 'tracks');
+
+        var url = 'https://api.spotify.com/v1/albums/' + e.target.id + '/tracks';
+        if (e.target.id == '') {
+            url = '';
+        }
+
+        this.props.loadDataFromServer(url, 'tracks');
     },
 
     render: function() {
@@ -22,6 +28,10 @@ var AlbumItem = React.createClass({
                 </ul>
             )
         }.bind(this))}
+
+        if (rows.length == 0) {
+            rows = <ul className="no-result"><li>Merci de sélectionner un artiste</li></ul>;
+        }
 
         return (
             <div>{rows}</div>

@@ -13,6 +13,10 @@ function TrackItem(props) {
         )
     })}
 
+    if (rows.length == 0) {
+        rows = <ul className="no-result"><li>Merci de sélectionner un album</li></ul>;
+    }
+
     return (
         <div>{rows}</div>
     );
@@ -20,6 +24,34 @@ function TrackItem(props) {
 
 var SearchArtist = React.createClass({
     loadDataFromServer: function(url, type) {
+        if (url == '') {
+            if (type == 'artist') {
+                this.setState({
+                    artistList: [],
+                    albumList: [],
+                    trackList: [],
+                    selectedArtist: '',
+                    selectedAlbum: ''
+                });
+            }
+
+            if (type == 'album') {
+                this.setState({
+                    albumList: [],
+                    trackList: [],
+                    selectedAlbum: ''
+                });
+            }
+
+            if (type == 'tracks') {
+                this.setState({
+                    trackList: []
+                });
+            }
+
+            return false;
+        }
+
         $.ajax({
             url: url,
             dataType: 'json',
@@ -27,7 +59,6 @@ var SearchArtist = React.createClass({
             success: function(data) {
                 if (type == 'artist') {
                     data = data.artists;
-                    console.log(data);
                 }
 
                 data.items.sort(function (itemA, itemB) {
@@ -45,6 +76,7 @@ var SearchArtist = React.createClass({
                 if (type == 'artist') {
                     this.setState({
                         artistList: data.items,
+                        albumList: [],
                         trackList: [],
                         selectedArtist: '',
                         selectedAlbum: ''
@@ -72,23 +104,27 @@ var SearchArtist = React.createClass({
     },
 
     artistChange: function(e){
-        if (e.target.value != "") {
-            this.setState({
-                albumList: [],
-                trackList: [],
-                selectedAlbum: '',
-                artistSearch: e.target.value
-            }, this.loadDataFromServer('https://api.spotify.com/v1/search?q=' + e.target.value + '&type=artist', 'artist'));
-        } else {
-            this.setState({
-                artistList: [],
-                albumList: [],
-                trackList: [],
-                selectedArtist: '',
-                selectedAlbum: '',
-                artistSearch: ''
-            });
+        var url = 'https://api.spotify.com/v1/search?q=' + e.target.value + '&type=artist';
+        if (e.target.value == '') {
+            url = '';
         }
+        //if (e.target.value != "") {
+            this.setState({
+                //albumList: [],
+                //trackList: [],
+                //selectedAlbum: '',
+                artistSearch: e.target.value
+            }, this.loadDataFromServer(url, 'artist'));
+        //} else {
+        //    this.setState({
+        //        artistList: [],
+        //        albumList: [],
+        //        trackList: [],
+        //        selectedArtist: '',
+        //        selectedAlbum: '',
+        //        artistSearch: ''
+        //    });
+        //}
     },
 
     setSelectedArtist: function(e){
@@ -115,17 +151,52 @@ var SearchArtist = React.createClass({
     },
 
     render: function() {
-        React.render(<ArtistItem artistList={this.state.artistList} loadDataFromServer={this.loadDataFromServer} setSelectedArtist={this.setSelectedArtist} selectedArtist={this.state.selectedArtist} artistSearch={this.state.artistSearch} />, $('#artist-content')[0]);
-        React.render(<AlbumItem albumList={this.state.albumList} loadDataFromServer={this.loadDataFromServer} setSelectedAlbum={this.setSelectedAlbum} selectedAlbum={this.state.selectedAlbum} />, $('#album-content')[0]);
-        React.render(<TrackItem trackList={this.state.trackList} />, $('#track-content')[0]);
+        if (this.state.artistSearch == '') {
+
+        }
+
         return (
-            <div className="group">
-                <input type="text" onChange={this.artistChange} placeholder="Artiste recherché" />
-                <span className="highlight"></span>
-                <span className="bar"></span>
+            <div>
+                <div id="search-artist" className="group">
+                    <div className="group">
+                        <input type="text" onChange={this.artistChange} placeholder="Artiste recherché" />
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                    </div>
+                </div>
+                <div className="table-responsive-vertical shadow-z-1">
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Artistes</th>
+                                <th>Albums</th>
+                                <th>Tracks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div id="artist-content">
+                                        <ArtistItem artistList={this.state.artistList} loadDataFromServer={this.loadDataFromServer} setSelectedArtist={this.setSelectedArtist} selectedArtist={this.state.selectedArtist} artistSearch={this.state.artistSearch} />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div id="album-content">
+                                        <AlbumItem albumList={this.state.albumList} loadDataFromServer={this.loadDataFromServer} setSelectedAlbum={this.setSelectedAlbum} selectedAlbum={this.state.selectedAlbum} />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div id="track-content">
+                                        <TrackItem trackList={this.state.trackList} />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
 });
 
-React.render(<SearchArtist />, $('#search-artist')[0]);
+React.render(<SearchArtist />, $('#artists-data')[0]);
