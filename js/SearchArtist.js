@@ -1,26 +1,7 @@
 var $ = require('jquery');
-var ArtistItem = require('./ArtistItem');
-var AlbumItem = require('./AlbumItem');
+var Item = require('./Item');
+var TrackItem = require('./TrackItem');
 var React = require('react');
-
-function TrackItem(props) {
-    rows = [];
-    {props.trackList.map(function(item) {
-        rows.push(
-            <ul>
-                <li id={item.id} key={item.id}>{item.name}</li>
-            </ul>
-        )
-    })}
-
-    if (rows.length == 0) {
-        rows = <ul className="no-result"><li>Merci de sélectionner un album</li></ul>;
-    }
-
-    return (
-        <div>{rows}</div>
-    );
-}
 
 var SearchArtist = React.createClass({
     loadDataFromServer: function(url, type) {
@@ -164,12 +145,12 @@ var SearchArtist = React.createClass({
                             <tr>
                                 <td>
                                     <div id="artist-content">
-                                        <ArtistItem artistList={this.state.artistList} loadDataFromServer={this.loadDataFromServer} setSelectedArtist={this.setSelectedArtist} selectedArtist={this.state.selectedArtist} artistSearch={this.state.artistSearch} />
+                                        <Item list={this.state.artistList} loadDataFromServer={this.loadDataFromServer} setSelectedItem={this.setSelectedArtist} selectedItem={this.state.selectedArtist} type={"artist"} artistSearch={this.state.artistSearch} />
                                     </div>
                                 </td>
                                 <td>
                                     <div id="album-content">
-                                        <AlbumItem albumList={this.state.albumList} loadDataFromServer={this.loadDataFromServer} setSelectedAlbum={this.setSelectedAlbum} selectedAlbum={this.state.selectedAlbum} />
+                                        <Item list={this.state.albumList} loadDataFromServer={this.loadDataFromServer} setSelectedItem={this.setSelectedAlbum} selectedItem={this.state.selectedAlbum} type={"album"} />
                                     </div>
                                 </td>
                                 <td>
